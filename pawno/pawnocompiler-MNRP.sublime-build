@@ -1,0 +1,4 @@
+{
+	"cmd": ["pawncc.exe", "-i includes", "$file", "-;+"],
+	"path": "C:/Users/diaz/Desktop/Carpetas y Archivos Generales/Pawno/GC-RP/pawno" 
+}
