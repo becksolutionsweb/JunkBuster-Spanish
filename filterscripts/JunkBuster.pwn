@@ -114,6 +114,7 @@ with some names with special symbols.
 #define PACK_CONTENT            (true)
 
 #include <Double-O-Files_2>
+#include <discord-connector>
 #include <Double-O-Bits>
 #include <ForEachPlayer>
 #include <zcmd>
@@ -2635,8 +2636,16 @@ PRIVATE: JB_Log (log [])
 	printf ("[junkbuster] %s", log);
 	new
 		string [256],
-		File: f = fopen (JB_LOG_FILE, io_append);
+		File: f = fopen (JB_LOG_FILE, io_append),
+		DCC_Channel:g_JunkBusterId;
 		
+	if (_:g_JunkBusterId == 0)
+		g_JunkBusterId = DCC_FindChannelById("546460918796648462"); // Discord channel ID
+	
+	new msg[128];
+	format(msg, sizeof msg, "[junkbuster] %s", log);
+	DCC_SendChannelMessage(g_JunkBusterId, msg);
+
 	format (string, sizeof (string), "%s | %s | %s\r\n", JB_GetDate (), JB_GetTime (), log);
 	fwrite (f, string);
 	return fclose (f);
